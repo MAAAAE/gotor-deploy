@@ -1,0 +1,9 @@
+[submodule "gotor-fe"]
+	path = gotor-fe
+	url = https://github.com/MAAAAE/gotor-fe.git
+[submodule "gotor-be"]
+	path = gotor-be
+	url = https://github.com/MAAAAE/gotor.git
+[submodule "gotor-engine"]
+	path = gotor-engine
+	url = https://github.com/MAAAAE/gotor-engine.git
