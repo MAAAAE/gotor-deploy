@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  gotor-fe:
+    build:
+      context: ./gotor-fe
+      dockerfile: Dockerfile
+    container_name: gotor-fe
+    ports:
+      - "80:80"
+    volumes:
+      - ./log/nginx:/var/log/nginx
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - app-network
+  gotor-be:
+    build:
+      context: ./gotor-be
+      dockerfile: Dockerfile
+    container_name: gotor-be
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./gotor-service-account.json:/etc/gotor-service-account.json
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /etc/gotor-service-account.json
+    networks:
+      - app-network
+  gotor-engine:
+    build: ./gotor-engine
+    container_name: gotor-engine
+    ports:
+      - "5001:5000"
+#    volumes:
+#      - ./gotor_engine:/app
+    command: flask run --host=0.0.0.0
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
